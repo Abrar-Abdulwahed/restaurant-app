@@ -1,6 +1,6 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --text-primary: #000001;
+  --text-secondary: #4f4944;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -16,14 +16,6 @@ body {
   overflow-x: hidden;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 * {
   box-sizing: border-box;
   padding: 0;
@@ -31,7 +23,7 @@ body {
 }
 
 a {
-  color: inherit;
+  color: var(--text-primary);
   text-decoration: none;
 }
 
