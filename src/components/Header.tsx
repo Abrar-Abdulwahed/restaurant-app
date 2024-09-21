@@ -1,11 +1,9 @@
 "use client";
-
 import Link from "next/link"
-import LocalDiningIcon from '@mui/icons-material/LocalDining';
 import PersonIcon from '@mui/icons-material/Person';
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 import MenuIcon from '@mui/icons-material/Menu';
-import { AppBar, Container, Toolbar, Box, Menu, MenuItem, Tooltip, List, ListItem, Typography, IconButton, Button } from '@mui/material';
+import { AppBar, Container, Toolbar, Box, Menu, MenuItem, Tooltip, List, ListItem, IconButton, Button } from '@mui/material';
 import React from "react";
 import Search, { SearchIconWrapper, StyledInputBase } from "@/components/Search"
 import SearchIcon from '@mui/icons-material/Search';
@@ -17,7 +15,7 @@ const Header = () => {
 
   const pages = [
     { name: "الرئيسية", href: "/" },
-    { name: "الخدمات", href: "/services" },
+    { name: "المنتجات", href: "/products" },
     { name: "الأسعار", href: "/prices" }
   ];
   const settings = [
@@ -43,10 +41,11 @@ const Header = () => {
 
   return (
     <AppBar position="static" elevation={0}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <RestaurantMenuIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+      <Container maxWidth="lg">
+        <Toolbar disableGutters sx={{
+          justifyContent: 'space-between',
+        }}>
+          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -80,37 +79,39 @@ const Header = () => {
               ))}
             </Menu>
           </Box>
-          <RestaurantMenuIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Box component="nav" sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <List sx={{ display: 'flex', flexDirection: 'row', padding: 0 }}>
-              {pages.map((page, index) => (
-                <ListItem key={index} sx={{ display: 'inline', padding: 0, marginRight: 2 }}>
-                  <Link
-                    href={page.href}
-                    sx={{
-                      '&:hover': {
-                        backgroundColor: 'primary.light',
-                      },
-                    }}
-                  >
-                    {page.name}
-                  </Link>
-                </ListItem>
-              ))}
-            </List>
+          <RestaurantMenuIcon />
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: { md: 'center' } }} marginLeft="auto">
+            <Box component="nav">
+              <List sx={{ display: 'flex', flexDirection: 'row', padding: 0 }}>
+                {pages.map((page, index) => (
+                  <ListItem key={index} sx={{ display: 'inline', padding: 0, marginRight: 2 }}>
+                    <Link
+                      href={page.href}
+                      sx={{
+                        '&:hover': {
+                          backgroundColor: 'primary.light',
+                        },
+                      }}
+                    >
+                      {page.name}
+                    </Link>
+                  </ListItem>
+                ))}
+              </List>
+            </Box>
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="ابحث عن طلبك"
+                inputProps={{ 'aria-label': 'search' }}
+              />
+            </Search>
           </Box>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="ابحث عن طلبك"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, marginLeft: { md: 10 } }}>
                 <PersonIcon />
               </IconButton>
             </Tooltip>

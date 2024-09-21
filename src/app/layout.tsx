@@ -4,6 +4,7 @@ import { Noto_Kufi_Arabic } from "next/font/google";
 import Header from '@/components/Header';
 import "./globals.css";
 import ClientProvider from "@/components/ClientProvider";
+import { Container } from "@mui/material";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -33,7 +34,7 @@ export default function RootLayout({
       <ClientProvider>
         <body>
           <Header />
-          <main>{children}</main>
+          <main><Container maxWidth="lg">{children}</Container></main>
         </body>
       </ClientProvider>
     </html>
