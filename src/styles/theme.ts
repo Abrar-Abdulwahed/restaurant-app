@@ -3,24 +3,34 @@ import { createTheme } from '@mui/material/styles';
 const geistSansVariable = '--font-geist-sans';
 const geistMonoVariable = '--font-geist-mono';
 
+// Extend the Palette interface to add a tertiary color
+declare module '@mui/material/styles' {
+  interface Palette {
+    tertiary: Palette['primary'];
+  }
+  interface PaletteOptions {
+    tertiary?: PaletteOptions['primary'];
+  }
+}
+
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#fff5e6',
-      light: '#ffe5c4',
+      main: '#B88E2F',
+      light: '#F9F1E7',
+      dark: '#FFF3E3'
     },
     secondary: {
-      main: '#000001',
-      light: '#4f4944',
+      main: '#000000',
+      light: '#9F9F9F',
     },
-    // tertiary: {},
+    tertiary: {
+      main: '#000000',
+      light: '#9F9F9F',
+    },
     background: {
-      default: '#FFFFFF',
-    },
-    text: {
-      primary: '#000001',
-      secondary: '#4f4944',
-    },
+      default: '#fff',
+    }
   },
   typography: {
     fontFamily: `var(${geistSansVariable}), "Roboto", "Helvetica", "Arial", sans-serif`,

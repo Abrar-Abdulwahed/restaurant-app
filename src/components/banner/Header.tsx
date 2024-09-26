@@ -1,22 +1,39 @@
 "use client";
 import Link from "next/link"
-import PersonIcon from '@mui/icons-material/Person';
-import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 import MenuIcon from '@mui/icons-material/Menu';
-import { AppBar, Container, Toolbar, Box, Menu, MenuItem, Tooltip, List, ListItem, IconButton, Button } from '@mui/material';
+import { Container, AppBar, Drawer, Toolbar, Box, Typography, Menu, MenuItem, Tooltip, List, ListItem, IconButton, Button } from '@mui/material';
 import React from "react";
+import Logo from '@/components/svgs/Logo';
 import Search, { SearchIconWrapper, StyledInputBase } from "@/components/Search"
-import SearchIcon from '@mui/icons-material/Search';
+
+// Import Icons
+import ClearCartIcon from '@/components/svgs/ClearCartIcon';
+import SearchIcon from '@/components/svgs/SearchIcon';
+import CartIcon from '@/components/svgs/CartIcon';
+import PersonIcon from '@/components/svgs/PersonIcon';
+import WishlistIcon from '@/components/svgs/WishlistIcon';
 
 
 const Header = () => {
+  const [isCartOpen, setCartOpen] = React.useState(false);
+
+  const toggleCartDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+    if (
+      event.type === 'keydown' &&
+      ((event as React.KeyboardEvent).key === 'Tab' || (event as React.KeyboardEvent).key === 'Shift')
+    ) {
+      return;
+    }
+    setCartOpen(open);
+  };
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
   const pages = [
     { name: "الرئيسية", href: "/" },
     { name: "المنتجات", href: "/products" },
-    { name: "الأسعار", href: "/prices" }
+    { name: "عننا", href: "/about" },
+    { name: "الاتصال بنا", href: "/contact" },
   ];
   const settings = [
     { name: "البروفايل", href: "/" },
@@ -40,10 +57,11 @@ const Header = () => {
   };
 
   return (
-    <AppBar position="static" elevation={0}>
-      <Container maxWidth="lg">
+    <AppBar position="static" sx={{ backgroundColor: 'background.default' }} elevation={0}>
+      <Container maxWidth="xl">
         <Toolbar disableGutters sx={{
           justifyContent: 'space-between',
+          paddingBlock: '20px'
         }}>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -73,48 +91,50 @@ const Header = () => {
               sx={{ display: { xs: 'block', md: 'none' } }}
             >
               {pages.map((page, index) => (
-                <MenuItem key={index} onClick={handleCloseNavMenu}>
-                  <Link href={page.href} sx={{ textAlign: 'center' }}>{page.name}</Link>
+                <MenuItem key={index} align="center" onClick={handleCloseNavMenu}>
+                  <Link href={page.href}>{page.name}</Link>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <RestaurantMenuIcon />
-          <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: { md: 'center' } }} marginLeft="auto">
-            <Box component="nav">
-              <List sx={{ display: 'flex', flexDirection: 'row', padding: 0 }}>
-                {pages.map((page, index) => (
-                  <ListItem key={index} sx={{ display: 'inline', padding: 0, marginRight: 2 }}>
-                    <Link
-                      href={page.href}
-                      sx={{
-                        '&:hover': {
-                          backgroundColor: 'primary.light',
-                        },
-                      }}
-                    >
-                      {page.name}
-                    </Link>
-                  </ListItem>
-                ))}
-              </List>
-            </Box>
+          <Logo />
+          <Box component="nav" sx={{ display: { xs: 'none', md: 'flex' }, alignItems: { md: 'center' } }}>
+            <List sx={{ display: 'flex', flexDirection: 'row-reverse', padding: 0 }}>
+              {pages.map((page, index) => (
+                <ListItem key={index} sx={{
+                  display: 'inline', padding: 0, marginRight: 2, whiteSpace: 'nowrap', '&:hover': {
+                    backgroundColor: 'primary.light',
+                  }
+                }}>
+                  <Link
+                    href={page.href}
+                  >
+                    {page.name}
+                  </Link>
+                </ListItem>
+              ))}
+            </List>
+          </Box>
+          <Box display="flex" flexGrow="0" columnGap="8px">
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <PersonIcon />
+              </IconButton>
+            </Tooltip>
             <Search>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
               <StyledInputBase
-                placeholder="ابحث عن طلبك"
                 inputProps={{ 'aria-label': 'search' }}
               />
             </Search>
-          </Box>
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, marginLeft: { md: 10 } }}>
-                <PersonIcon />
-              </IconButton>
-            </Tooltip>
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <WishlistIcon />
+            </IconButton>
+            <IconButton onClick={toggleCartDrawer(true)}>
+              <CartIcon />
+            </IconButton>
             <Menu
               disableScrollLock={true}
               sx={{ mt: '45px' }}
@@ -141,6 +161,32 @@ const Header = () => {
           </Box>
         </Toolbar>
       </Container>
+      <Drawer
+        anchor="right"
+        open={isCartOpen}
+        onClose={toggleCartDrawer(false)}
+      >
+        <Box
+          sx={{ width: 400 }}
+          role="presentation"
+          onClick={toggleCartDrawer(false)}
+          onKeyDown={toggleCartDrawer(false)}
+        >
+          <Box>
+            <Typography variant="h5" fontWeight="bold" sx={{ padding: 2 }}>Shopping Cart</Typography>
+            <ClearCartIcon />
+          </Box>
+          <List>
+            <ListItem>Item 1</ListItem>
+            <ListItem>Item 2</ListItem>
+            {/* Add your cart items here */}
+          </List>
+          <Box sx={{ padding: 2 }}>
+            <Typography variant="subtitle1">Subtotal: $123.00</Typography>
+            <Button variant="contained" sx={{ marginTop: 2 }}>Checkout</Button>
+          </Box>
+        </Box>
+      </Drawer>
     </AppBar>
   );
 }

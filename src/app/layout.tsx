@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Noto_Kufi_Arabic } from "next/font/google";
-import Header from '@/components/Header';
+import Header from '@/components/banner/Header';
 import "./globals.css";
 import ClientProvider from "@/components/ClientProvider";
 import { Container } from "@mui/material";
 
 const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
+  src: "./assets/fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
 });
 const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
+  src: "./assets/fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
 });
@@ -34,7 +34,7 @@ export default function RootLayout({
       <ClientProvider>
         <body>
           <Header />
-          <main><Container maxWidth="lg">{children}</Container></main>
+          <main>{children}</main>
         </body>
       </ClientProvider>
     </html>

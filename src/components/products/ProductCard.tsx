@@ -26,7 +26,7 @@ const ProductCard = ({ product }: { product: Product }) => {
                 alt={product.title}
             />
             <CardContent>
-                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                <Typography variant="body2" sx={{ color: 'tertiary.secondary' }}>
                     {product.description}
                 </Typography>
             </CardContent>

@@ -6,10 +6,12 @@ import { Box } from '@mui/material';
 
 
 const ProductsPage = async () => {
+    let products: Product[] = [];
+    await axios.get('https://dummyjson.com/products').catch(response => {
+        products = response.data.products;
+    }).then((error) => { throw new Error('Something wend wrong!') });
 
-    const response = await axios.get('https://dummyjson.com/products');
 
-    const products: Product[] = response.data.products;
     return (
         <Box sx={{
             display: 'grid',
