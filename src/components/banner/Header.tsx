@@ -91,8 +91,8 @@ const Header = () => {
               sx={{ display: { xs: 'block', md: 'none' } }}
             >
               {pages.map((page, index) => (
-                <MenuItem key={index} align="center" onClick={handleCloseNavMenu}>
-                  <Link href={page.href}>{page.name}</Link>
+                <MenuItem key={index}>
+                  <Link href={page.href} onClick={handleCloseNavMenu}>{page.name}</Link>
                 </MenuItem>
               ))}
             </Menu>
@@ -154,7 +154,7 @@ const Header = () => {
             >
               {settings.map((setting, index) => (
                 <MenuItem key={index} onClick={handleCloseUserMenu}>
-                  <Link href={setting.href} sx={{ textAlign: 'center' }}>{setting.name}</Link>
+                  <Link href={setting.href}>{setting.name}</Link>
                 </MenuItem>
               ))}
             </Menu>

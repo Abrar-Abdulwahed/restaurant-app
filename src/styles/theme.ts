@@ -22,11 +22,12 @@ const theme = createTheme({
     },
     secondary: {
       main: '#000000',
-      light: '#9F9F9F',
+      light: '#F4F5F7',
+      dark: '#9F9F9F',
     },
     tertiary: {
-      main: '#000000',
-      light: '#9F9F9F',
+      main: '#E97171',
+      light: '#2EC1AC',
     },
     background: {
       default: '#fff',

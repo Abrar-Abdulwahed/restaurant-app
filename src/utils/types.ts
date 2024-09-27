@@ -4,6 +4,13 @@ export type Product = {
     description: string,
     category: string,
     images: string[],
+    thumbnail: string,
+    price: number,
+    discountPercentage: number,
+    meta: {
+        createdAt: Date,
+        updatedAt: Date,
+    }
 }
 
 export type PopularPage = {
